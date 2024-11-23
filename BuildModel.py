@@ -9,9 +9,16 @@ from PIL import Image
 #import seaborn as sns
 #import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+
 from tensorflow import keras
-from tensorflow.keras import layers 
-from tensorflow.keras import layers, models
+from keras import layers, models
+from keras.preprocessing.image import img_to_array, load_img
+from keras.utils import to_categorical
+
+# from tensorflow import keras
+# from tensorflow.keras import layers 
+# from tensorflow.keras import layers, models
+# from tensorflow.keras.utils import to_categorical
 
 RESO = 320
 
