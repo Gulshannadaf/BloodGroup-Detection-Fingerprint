@@ -57,23 +57,59 @@
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
- 
-from flask import Flask, request, jsonify, render_template
-import random  # For blood group simulation
 
-app = Flask(__name__)
+# from flask import Flask, request, jsonify, render_template
+# import random  # For blood group simulation
+
+# app = Flask(__name__)
+# @app.route('/')
+# def home():
+#     return send_from_directory('./frontend', 'index.htm')
+
+
+# # Simulated blood group detection logic
+# def detect_blood_group(fingerprint_data):
+#     # In reality, process the fingerprint_data with SecuGen SDK here
+#     blood_groups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+#     return random.choice(blood_groups)
+
+# # API Endpoint to capture and detect blood group
+# @app.route('/capture_and_detect', methods=['POST'])
+# def capture_and_detect():
+#     try:
+#         # Simulate receiving fingerprint data
+#         fingerprint_data = request.get_json().get('fingerprint_data', None)
+#         if not fingerprint_data:
+#             return jsonify({"error": "Fingerprint data not provided"}), 400
+
+#         # Process fingerprint data to detect blood group
+#         blood_group = detect_blood_group(fingerprint_data)
+
+#         return jsonify({"blood_group": blood_group}), 200
+
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+
+# # Run the server
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+# ******************NEW BACKEND*******************
+from flask import Flask, send_from_directory
+
+app = Flask(__name__, static_folder='frontend', static_url_path='')
+
+# Serve the main index.html file
 @app.route('/')
 def home():
-    return "Welcome to the Blood Group Detection API! Use the /capture_and_detect endpoint."
+    return send_from_directory('frontend', 'index.html')
 
+# Serve static files like CSS, JS, and assets
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('frontend', filename)
 
-# Simulated blood group detection logic
-def detect_blood_group(fingerprint_data):
-    # In reality, process the fingerprint_data with SecuGen SDK here
-    blood_groups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
-    return random.choice(blood_groups)
-
-# API Endpoint to capture and detect blood group
 @app.route('/capture_and_detect', methods=['POST'])
 def capture_and_detect():
     try:
@@ -90,6 +126,6 @@ def capture_and_detect():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Run the server
+
 if __name__ == '__main__':
     app.run(debug=True)
