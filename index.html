@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Group Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="s
+    tylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="showHomePage()">Home</a></li>
+            <li><a href="javascript:void(0);" onclick="showAboutPage()">About</a></li>
+            <li><a href="javascript:void(0);" onclick="showLoginPage()">Login</a></li>
+            <li><a href="javascript:void(0);" onclick="showSignupPage()">Sign Up</a></li>
+        </ul>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page-content">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Welcome to Blood Group Detector</h1>
+                <p>Determine blood type using advanced machine learning and fingerprint scanning.</p> 
+                <button class="btn primary" onclick="captureFingerprint()">Start Detection</button>
+            </div>
+            <div class="hero-image">
+                <img src="fingerprintscan.png" alt="Fingerprint Scanner">
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about-page" class="page-content" style="display: none;">
+        <div class="container">
+            <h1>About Us</h1>
+            <p>Our platform leverages fingerprint scanning and machine learning technology to determine blood types with accuracy and speed.</p>
+            <img src="aboutimage.png" alt="About Us" class="responsive-img">
+            <p>We aim to revolutionize healthcare by simplifying blood group detection through non-invasive methods.</p>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page-content" style="display: none;">
+        <div class="form-container">
+            <h1>Login</h1>
+            <form id="login-form">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" name="login-username" required>
+
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="login-password" required>
+
+                <button type="submit" class="btn primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signup-page" class="page-content" style="display: none;">
+        <div class="form-container">
+            <h1>Sign Up</h1>
+            <form id="signup-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+
+                <button type="submit" class="btn primary">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
