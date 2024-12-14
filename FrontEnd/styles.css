@@ -146,16 +146,18 @@ form input {
 
 form input:focus {
     outline: none;
-    border-color: #ff7eb3
+    border-color: #ff7eb3;
     box-shadow: 0 0 5px #ff7eb3;
 }
+
+/* Responsive Hero Section */
+@media screen and (max-width: 768px) {
     .hero-image img {
         width: 250px;
         margin-top: 20px;
     }
-    
+
     .hero-text h1 {
         font-size: 2rem;
     }
-
-    
+}
