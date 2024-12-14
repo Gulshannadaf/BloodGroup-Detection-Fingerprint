@@ -1,0 +1,6 @@
+tensorflow<2.11
+keras
+numpy<2
+opencv-python
+pillow
+scikit-learn

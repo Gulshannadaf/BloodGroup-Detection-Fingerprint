@@ -1,0 +1,10 @@
+Results of Inferencing on download.bmp file.
+Epoch   |   Probability (must be 1 (A+))
+1       |   0.23
+2       |   0.29
+3       |   0.37
+4       |   0.82
+5       |   0.22s
+6       |   0.32
+7       |   0.81
+10      |   0.41
