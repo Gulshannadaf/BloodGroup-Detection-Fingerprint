@@ -43,3 +43,4 @@ function captureFingerprint() {
             document.getElementById('result-text').innerText = "Server error. Please try again.";
         });
 }
+

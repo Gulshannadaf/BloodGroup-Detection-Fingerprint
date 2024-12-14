@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Group Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        #result-text {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blood Group Detection</h1>
+    <p>Click the button below to detect the blood group using simulated fingerprint data.</p>
+    <button class="btn" onclick="detectBloodGroup()">Capture & Detect</button>
+    <p id="result-text">Blood group will appear here.</p>
+
+    <script>
+        async function detectBloodGroup() {
+            const resultText = document.getElementById("result-text");
+            resultText.textContent = "Processing...";
+
+            try {
+                // Simulated fingerprint data
+                const fingerprintData = "simulated_fingerprint_data";
+
+                // Send POST request to Flask API
+                const response = await fetch("/capture_and_detect", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ fingerprint_data: fingerprintData })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultText.textContent = `Detected Blood Group: ${data.blood_group}`;
+                } else {
+                    resultText.textContent = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                resultText.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
