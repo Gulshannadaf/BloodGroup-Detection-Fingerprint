@@ -87,7 +87,7 @@ model.compile(
 
 history = model.fit(train_images, train_labels, epochs=EPOCHS, batch_size=64, validation_data=(val_images, val_labels))
 
-model.save(f"test-{EPOCHS}-epochs.h5")
+model.save(f"Models/test-{EPOCHS}-epochs.h5")
 
 # Print the model summary
 model.summary()

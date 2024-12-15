@@ -1,2 +1,4 @@
 __pycache__/
 pyenv/
+uploads/
+test.py
