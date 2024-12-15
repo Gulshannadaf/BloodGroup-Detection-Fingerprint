@@ -10,9 +10,10 @@ import numpy as np
 from keras.models import load_model
 from RunPridiction import makePrediction
 
-app = Flask(__name__, static_folder='frontend', static_url_path='')
+app = Flask(__name__, template_folder='frontend', static_folder='frontend', static_url_path='')
 input_data = {}
-response_data = {}
+scan_data = {}
+EPOCHS = 10
 # Serve the main index.html file
 @app.route('/')
 def home():
@@ -22,8 +23,6 @@ def home():
 @app.route('/<path:filename>')
 def static_files(filename):
     return send_from_directory('frontend', filename)
-
-
     
 
 @app.route('/SimpleScan', methods=['GET', 'POST'])
@@ -41,32 +40,12 @@ def SimpleScan():
 
 @app.route('/Display_Image', methods=['GET', 'POST'])
 def DisplayImage():
-    ErrorNumber = int(request.form.get('ErrorCode'))
-    if ErrorNumber > 0:
-        return render_template('error.html', error=ErrorNumber, errordescription=TranslateErrorNumber(ErrorNumber))
-    blood_group = ''
-    input_data['Timeout'] = request.form.get('timeout')
-    input_data['Quality'] = request.form.get('quality')
-    input_data['Fake_Detect'] = request.form.get('fake_detect')
-    input_data['TemplateFormat'] = request.form.get('template_format')
-    input_data['ImageWSQRate'] = request.form.get('imagewsqrate')
-
-    # Extract data coming from the external API
-    response_data['Manufacturer'] = request.form.get('Manufacturer')
-    response_data['Model'] = request.form.get('Model')
-    response_data['SerialNumber'] =  blood_group#request.form.get('SerialNumber')
-    response_data['ImageWidth'] = request.form.get('ImageWidth')
-    response_data['ImageHeight'] = request.form.get('ImageHeight')
-    response_data['ImageDPI'] = request.form.get('ImageDPI')
-    response_data['ImageQuality'] = request.form.get('ImageQuality')
-    response_data['NFIQ'] = request.form.get('NFIQ')
-    response_data['TemplateBase64'] = request.form.get('TemplateBase64')
-    response_data['WSQImageSize'] = request.form.get('WSQImageSize')
-    response_data['WSQImage'] = request.form.get('WSQImage')
-    response_data['BMPBase64'] = request.form.get('BMPBase64')
+    # ErrorNumber = int(request.form.get('ErrorCode'))
+    # if ErrorNumber > 0:
+    #     return render_template('error.html', error=ErrorNumber, errordescription=TranslateErrorNumber(ErrorNumber))
     
     
-    bmp_base64_data = response_data.get('BMPBase64')
+    bmp_base64_data = request.form.get('BMPBase64')
     if bmp_base64_data:
         # Remove the 'data:image/bmp;base64,' prefix if it exists
         if bmp_base64_data.startswith("data:image/bmp;base64,"):
@@ -88,7 +67,7 @@ def DisplayImage():
             bmp_file.write(bmp_data)
 
         print(f"BMP image saved as {file_path}")
-        model = load_model("test-4-epochs.h5")
+        model = load_model(f"Models/test-{EPOCHS}-epochs.h5")
 
         # Make a prediction
         try:
@@ -97,10 +76,18 @@ def DisplayImage():
             print("Prediction:", prediction)
         except FileNotFoundError as e:
             print(e)
-        response_data['SerialNumber'] =  prediction[0][1]#request.form.get('SerialNumber')
+        labels = ["A-", "A+", "AB-", "AB+", "B-", "B+","O-", "O+"]
+        max_index = np.argmax(prediction[0])  # Use prediction[0] to access the first row
+        print(labels[max_index])
+        
+    scan_data['BloodGroup'] = labels[max_index]
+    scan_data['Probability'] =  prediction[0][max_index]
+    scan_data['Quality'] = "Working"
+    scan_data['Accuracy'] = 0.74
+    scan_data['Epochs'] =  EPOCHS
+    scan_data['BMPBase64'] = bmp_base64_data
     
-    
-    return render_template('display_image.html', metadata=response_data, user_input=input_data) 
+    return render_template('display_image.html', metadata=scan_data, user_input=input_data) 
 
 @app.route('/test',methods=['GET'])
 def test():
