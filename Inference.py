@@ -15,11 +15,11 @@ import numpy as np
 from keras.models import load_model
 from RunPridiction import makePrediction
 
-# Load the trained model
-model = load_model("test1.h5")
+# Load the trained modelp
+model = load_model("test-5-epochs.h5")
 
 # Provide the path to the image you want to predict
-image_path = r"Data\A-\cluster_1_67.BMP"
+image_path = r"download.bmp"
 
 # Make a prediction
 try:

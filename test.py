@@ -12,7 +12,8 @@ from sklearn.model_selection import train_test_split
 
 from tensorflow import keras
 from keras import layers, models
-from keras.preprocessing.image import img_to_array, load_img
+#from keras.preprocessing.image import img_to_array, load_img
+from tensorflow.keras.utils import img_to_array, load_img
 from keras.utils import to_categorical
 
 # from tensorflow import keras
@@ -20,32 +21,29 @@ from keras.utils import to_categorical
 # from tensorflow.keras import layers, models
 # from tensorflow.keras.utils import to_categorical
 
-RESO = 320
+img = cv2.imread("Data\A-\cluster_1_0 - Copy.BMP")
+cv2.imshow("Image",img)
+cv2.waitKey(0)
+print(img.shape)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Image",img)
+cv2.waitKey(0)
+print(img.shape)
+img = np.expand_dims(img, axis=-1)
+img = cv2.equalizeHist(img)
+cv2.imshow("Image",img)
+cv2.waitKey(0)
+print(img.shape)
 
-dataset_path = "Data/"
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(4, 4))
+img = clahe.apply(img)
+cv2.imshow("Image",img)
+cv2.waitKey(0)
 
-def load_images_from_folder(folder):
-    images = []
-    labels = []
-    for label, subfolder in enumerate(["A-", "A+", "AB-", "AB+", "B-", "B+", "O-", "O+"]):
-        subfolder_path = os.path.join(folder, subfolder)
-        for filename in os.listdir(subfolder_path):
-            img = cv2.imread(os.path.join(subfolder_path, filename), cv2.IMREAD_UNCHANGED)  # Load image
-            if img is not None:
-                print(f"Loaded {filename} with shape: {img.shape}")  # Print the shape of the image
-                img = Image.fromarray(img)
-                img = img.resize((RESO, RESO))
-                img = np.array(img)
+alpha = 2.5  # Increase the contrast (1.0 - 3.0)
+beta = 0     # Brightness control (0-100)
+img = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
+cv2.imshow("Image",img)
+cv2.waitKey(0)
 
-                # If the image is grayscale (1 channel), convert it to 3 channels
-                if img.ndim == 2:  # Grayscale image (2D)
-                    img = np.stack((img,) * 3, axis=-1)  # Convert to 3 channels by stacking
 
-                images.append(img)
-                labels.append(label)
-            else:
-                print(f"Failed to load {filename}.")
-    return np.array(images), np.array(labels)
-
-# Load images and check shapes
-images, labels = load_images_from_folder(dataset_path)
