@@ -17,7 +17,7 @@ CLACHE_TILE_GRID_SIZE = 4
 ALPHA = 2.5
 BETA = 0
 NUM_CLASSES = 8
-EPOCHS = 10
+EPOCHS = 3
 
 dataset_path = "Data/"
 
@@ -37,8 +37,8 @@ def load_images_from_folder(folder):
 
             img = cv2.convertScaleAbs(img, alpha=ALPHA, beta=BETA) # Making image more contrast by changin alpha and beta
 
-            img = Image.fromarray(img)  
-            img = np.array(img)
+            # img = Image.fromarray(img)  
+            # img = np.array(img)
             images.append(img)
             labels.append(label)
     return np.array(images), np.array(labels)

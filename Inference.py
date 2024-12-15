@@ -15,16 +15,23 @@ import numpy as np
 from keras.models import load_model
 from RunPridiction import makePrediction
 
+
+EPOCHS = 8
 # Load the trained modelp
-model = load_model("test-4-epochs.h5")
+model = load_model(f"Models/test-{EPOCHS}-epochs.h5")
 
+while(1):
 # Provide the path to the image you want to predict
-image_path = r"gul-fp-2.bmp"
-
-# Make a prediction
-try:
-    prediction = makePrediction(model, image_path)
-    np.set_printoptions(suppress=True, linewidth=100)
-    print("Prediction:", prediction)
-except FileNotFoundError as e:
-    print(e)
+#image_path = r"uploads/download.bmp"
+    #image_path = r"Data\A-\cluster_1_83.BMP"
+    image_path = input("Enter relative Path: ")
+    # Make a prediction
+    try:
+        prediction = makePrediction(model, image_path)
+        np.set_printoptions(suppress=True, linewidth=100)
+        print("Prediction:", prediction)
+        labels = ["A-", "A+", "AB-", "AB+", "B-", "B+","O-", "O+"]
+        max_index = np.argmax(prediction[0])  # Use prediction[0] to access the first row
+        print(labels[max_index])
+    except FileNotFoundError as e:
+        print(e)

@@ -6,5 +6,11 @@ Epoch   |   Probability (must be 1 (A+))
 4       |   0.53
 5       |   0.22
 6       |   0.32
+8       |   0.29
 7       |   0.81
 10      |   0.41
+
+
+Without Image conversion
+
+8       |   

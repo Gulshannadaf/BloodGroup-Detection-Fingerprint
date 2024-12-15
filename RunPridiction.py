@@ -22,8 +22,8 @@ def makePrediction(model, img_path):
 
     # Convert RGBA to RGB if needed
     img = img[:, :, :3]  # converting RGBA to RGB
-    x_start, y_start = 12, 0     # Top-left corner of the crop
-    x_end, y_end = 300, 309      # Bottom-right corner of the crop
+    x_start, y_start = 54, 0     # Top-left corner of the crop
+    x_end, y_end = 246, 206      # Bottom-right corner of the crop
     img = img[y_start:y_end, x_start:x_end]
     img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
@@ -39,10 +39,10 @@ def makePrediction(model, img_path):
     
 
     # Ensure the data type is uint8 for proper conversion to Image
-    img = img.astype(np.uint8)  
+    #img = img.astype(np.uint8)  
 
     # Convert the image to a PIL Image for further processing (optional)
-    img = Image.fromarray(img)
+    #img = Image.fromarray(img)
 
     # Normalize the image
     img = np.array(img).astype('float32') / 255.0
