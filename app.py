@@ -13,7 +13,7 @@ from RunPridiction import makePrediction
 app = Flask(__name__, template_folder='frontend', static_folder='frontend', static_url_path='')
 input_data = {}
 scan_data = {}
-EPOCHS = 10
+EPOCHS = 12
 # Serve the main index.html file
 @app.route('/')
 def home():

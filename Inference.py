@@ -16,7 +16,7 @@ from keras.models import load_model
 from RunPridiction import makePrediction
 
 
-EPOCHS = 8
+EPOCHS = 12
 # Load the trained modelp
 model = load_model(f"Models/test-{EPOCHS}-epochs.h5")
 

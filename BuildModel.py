@@ -17,7 +17,7 @@ CLACHE_TILE_GRID_SIZE = 4
 ALPHA = 2.5
 BETA = 0
 NUM_CLASSES = 8
-EPOCHS = 3
+EPOCHS = 12
 
 dataset_path = "Data/"
 
